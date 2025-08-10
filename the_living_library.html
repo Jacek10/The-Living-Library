@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Living Library: Connecting Generations Through Story</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom styles to apply the fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfdfc;
+            color: #333;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hide scrollbar but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-stone-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="font-bold text-2xl font-serif text-stone-700">
+                <i data-lucide="library" class="inline-block w-6 h-6 mr-2 text-amber-700"></i>
+                The Living Library
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-stone-600 hover:text-amber-700 transition duration-300">Home</a>
+                <a href="#stories" class="text-stone-600 hover:text-amber-700 transition duration-300">Stories</a>
+                <a href="#about" class="text-stone-600 hover:text-amber-700 transition duration-300">About</a>
+                <a href="#nominate" class="bg-amber-700 text-white px-4 py-2 rounded-full hover:bg-amber-800 transition duration-300 shadow-sm">Nominate a Storyteller</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#home" class="block py-2 text-stone-600 hover:text-amber-700">Home</a>
+            <a href="#stories" class="block py-2 text-stone-600 hover:text-amber-700">Stories</a>
+            <a href="#about" class="block py-2 text-stone-600 hover:text-amber-700">About</a>
+            <a href="#nominate" class="block mt-2 bg-amber-700 text-white text-center px-4 py-2 rounded-full hover:bg-amber-800">Nominate</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        <!-- Page containers will be dynamically shown/hidden here -->
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-stone-800 text-stone-300 py-12 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="font-serif text-2xl text-white">The Living Library</h3>
+            <p class="mt-2 max-w-md mx-auto">Preserving wisdom, one story at a time. Connecting generations for a more empathetic world.</p>
+            <div class="mt-6 flex justify-center space-x-6">
+                <a href="#" class="hover:text-white"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                <a href="#" class="hover:text-white"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                <a href="#" class="hover:text-white"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+            </div>
+            <p class="mt-8 text-sm text-stone-400">&copy; 2025 The Living Library Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Message Modal for form submission -->
+    <div id="message-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-sm mx-auto">
+            <h3 id="modal-title" class="text-xl font-bold font-serif mb-4"></h3>
+            <p id="modal-message" class="text-stone-600 mb-6"></p>
+            <button id="modal-close-button" class="bg-amber-700 text-white px-6 py-2 rounded-full hover:bg-amber-800 transition">Close</button>
+        </div>
+    </div>
+
+
+    <!-- Page Templates (hidden by default) -->
+    <div id="page-templates" class="hidden">
+
+        <!-- Home Page Template -->
+        <div id="home-template">
+            <div class="container mx-auto px-6 py-16 text-center fade-in">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold text-stone-800 leading-tight">Every life is a library.</h1>
+                <p class="mt-4 text-lg md:text-xl text-stone-600 max-w-3xl mx-auto">We collect, preserve, and share the life stories of our elders, building a bridge of wisdom between generations.</p>
+                <div class="mt-8 flex justify-center space-x-4">
+                    <a href="#stories" class="bg-amber-700 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-amber-800 transition duration-300 shadow-md">Explore Stories</a>
+                    <a href="#nominate" class="bg-white text-amber-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-stone-100 transition duration-300 border border-amber-700 shadow-sm">Share a Story</a>
+                </div>
+            </div>
+
+            <!-- Featured Stories Section -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-serif font-bold text-center mb-10">Featured Stories</h2>
+                    <div id="featured-stories-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Featured stories will be loaded here by JS -->
+                        <div class="text-center p-4 text-stone-500">Loading featured stories...</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- How it Works Section -->
+            <section class="py-20">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-serif font-bold text-center mb-12">How It Works</h2>
+                    <div class="grid md:grid-cols-3 gap-10 text-center">
+                        <div class="p-6">
+                            <i data-lucide="user-plus" class="w-16 h-16 mx-auto text-amber-700 mb-4"></i>
+                            <h3 class="text-xl font-serif font-semibold mb-2">1. Nominate</h3>
+                            <p class="text-stone-600">Share the story of an elder in your life. We reach out with respect and care to invite them to participate.</p>
+                        </div>
+                        <div class="p-6">
+                            <i data-lucide="mic" class="w-16 h-16 mx-auto text-amber-700 mb-4"></i>
+                            <h3 class="text-xl font-serif font-semibold mb-2">2. Listen & Record</h3>
+                            <p class="text-stone-600">Our trained volunteers sit down with storytellers to listen and record their experiences in their own voice.</p>
+                        </div>
+                        <div class="p-6">
+                            <i data-lucide="share-2" class="w-16 h-16 mx-auto text-amber-700 mb-4"></i>
+                            <h3 class="text-xl font-serif font-semibold mb-2">3. Preserve & Share</h3>
+                            <p class="text-stone-600">We professionally produce and archive each story, sharing it with the world on our digital platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Stories Page Template -->
+        <div id="stories-template">
+            <div class="container mx-auto px-6 py-12 fade-in">
+                <h1 class="text-4xl font-serif font-bold text-center mb-2">The Story Archive</h1>
+                <p class="text-center text-stone-600 mb-10">A collection of lives, lessons, and legacies.</p>
+                <div id="stories-grid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Story cards will be loaded here by JS -->
+                    <div class="text-center p-4 text-stone-500 col-span-full">Loading stories...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Story Detail Page Template -->
+        <div id="story-detail-template">
+             <div class="container mx-auto px-6 py-12 max-w-4xl fade-in">
+                <!-- Story content will be loaded here by JS -->
+                <div class="text-center p-8 text-stone-500">Loading story details...</div>
+            </div>
+        </div>
+
+        <!-- About Page Template -->
+        <div id="about-template">
+            <div class="container mx-auto px-6 py-16 max-w-4xl fade-in">
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-center">Our Mission</h1>
+                <div class="prose lg:prose-xl mx-auto mt-8 text-stone-700">
+                    <p>In a fast-paced world, we risk losing the invaluable wisdom of our elders. The threads of experience that connect us to our past can fray, and with them, we lose perspective, empathy, and a deeper understanding of our shared humanity.</p>
+                    <p><strong>The Living Library</strong> was founded on a simple but powerful idea: to build a bridge between generations. We are a non-profit digital initiative dedicated to collecting, preserving, and sharing the life stories of older adults.</p>
+                    <p>By pairing young volunteer interviewers with senior storytellers, we do more than just create an archive. We foster moments of profound connection. We combat loneliness in our elders by showing them their stories have value. We empower young people with lessons on resilience, love, and change that can't be found in a textbook.</p>
+                    <blockquote>"A society grows great when old men plant trees whose shade they know they shall never sit in."</blockquote>
+                    <p>These stories are those trees. They are a legacy planted for the future. We invite you to explore the archive, listen to the voices, and become part of our community.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nominate Page Template -->
+        <div id="nominate-template">
+            <div class="container mx-auto px-6 py-16 max-w-2xl fade-in">
+                <h1 class="text-4xl font-serif font-bold text-center">Nominate a Storyteller</h1>
+                <p class="text-center text-stone-600 mt-2 mb-8">Know an elder with a story to share? Help us connect with them. We handle every nomination with the utmost respect and privacy.</p>
+                <form id="nomination-form" class="space-y-6 bg-white p-8 rounded-lg shadow-md border border-stone-200">
+                    <div>
+                        <label for="nominator-name" class="block text-sm font-medium text-stone-700">Your Name</label>
+                        <input type="text" id="nominator-name" required class="mt-1 block w-full px-3 py-2 bg-white border border-stone-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label for="nominator-email" class="block text-sm font-medium text-stone-700">Your Email</label>
+                        <input type="email" id="nominator-email" required class="mt-1 block w-full px-3 py-2 bg-white border border-stone-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
+                    </div>
+                     <div>
+                        <label for="storyteller-name" class="block text-sm font-medium text-stone-700">Storyteller's Name</label>
+                        <input type="text" id="storyteller-name" required class="mt-1 block w-full px-3 py-2 bg-white border border-stone-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
+                    </div>
+                     <div>
+                        <label for="storyteller-contact" class="block text-sm font-medium text-stone-700">Storyteller's Contact Info (Phone or Email)</label>
+                        <input type="text" id="storyteller-contact" required class="mt-1 block w-full px-3 py-2 bg-white border border-stone-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
+                         <p class="text-xs text-stone-500 mt-1">Please ensure you have their permission to share this.</p>
+                    </div>
+                     <div>
+                        <label for="story-summary" class="block text-sm font-medium text-stone-700">Briefly, what is their story about?</label>
+                        <textarea id="story-summary" rows="4" required class="mt-1 block w-full px-3 py-2 bg-white border border-stone-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" id="form-submit-button" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-lg font-medium text-white bg-amber-700 hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition duration-300">
+                            Submit Nomination
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase and App Logic -->
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, getDoc, addDoc, doc, query, limit, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- Firebase Configuration ---
+        // IMPORTANT: This configuration is a placeholder.
+        // In a real environment, this would be securely provided.
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        let app, db;
+        try {
+            // Use provided config if available, otherwise use placeholder
+            const finalConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : firebaseConfig;
+            app = initializeApp(finalConfig);
+            db = getFirestore(app);
+            console.log("Firebase initialized successfully.");
+        } catch (e) {
+            console.error("Error initializing Firebase:", e);
+            // Display an error message on the page if Firebase fails to initialize
+            document.getElementById('main-content').innerHTML = `<div class="text-center p-8 bg-red-100 text-red-800">Could not connect to the database. Please check the configuration.</div>`;
+        }
+
+        // --- Mock Data (for demonstration if DB is empty) ---
+        const MOCK_STORIES = {
+            "eleanor-vance": {
+                name: "Eleanor Vance",
+                birthYear: 1935,
+                tagline: "A life of resilience, from the Dust Bowl to the digital age.",
+                imageUrl: "https://placehold.co/400x400/a3a3a3/ffffff?text=Eleanor",
+                storyHtml: `
+                    <p>My earliest memory is the taste of dust. We weren't just living in the Dust Bowl; we were breathing it. It taught me a lesson that's stuck with me: you can't control the storm, but you can learn to build a stronger house. We moved to California with nothing but a beat-up Ford and a whole lot of hope.</p>
+                    <p>Working in the canneries as a young woman, I saw how people from all walks of life came together. We shared lunches, stories, and the dream of a better life for our children. That's where I met my husband, John. He had the kindest eyes I'd ever seen.</p>
+                    <p>We raised three children, and I made sure they knew the value of hard work and the importance of kindness. I've seen the world change in ways I could never have imagined. I've gone from writing letters to video-calling my great-grandchildren. The technology changes, but the important things—family, love, perseverance—they never do.</p>
+                    <p>My advice to the young ones? Be curious. Don't be afraid to get your hands dirty. And listen. Really listen. Everyone has a story worth hearing.</p>
+                `,
+                audioUrl: null, // Placeholder for audio file URL
+                videoUrl: null, // Placeholder for YouTube embed URL
+            },
+            "samuel-chen": {
+                name: "Samuel Chen",
+                birthYear: 1948,
+                tagline: "An immigrant's journey and the fabric of a new community.",
+                imageUrl: "https://placehold.co/400x400/a3a3a3/ffffff?text=Samuel",
+                storyHtml: `<p>Coming to America in the 70s was like stepping onto another planet. The buildings were taller, the cars were faster, and I didn't speak a word of English. I started with a small grocery store in a neighborhood that was a mosaic of different cultures. It was tough. There were days I wanted to give up and go home.</p><p>But my customers became my family. Mrs. Rodriguez would teach me a new English word every day in exchange for the freshest vegetables. Mr. Goldberg, the tailor next door, taught me how to navigate the city's bureaucracy. We built a community, not with bricks and mortar, but with shared meals, borrowed cups of sugar, and looking out for each other's kids.</p><p>My little store grew, and I was able to send both my children to college. They are my greatest pride. They understand the sacrifices we made, and they carry our family's story with them. This country gave me an opportunity, but it was the people who gave me a home.</p>`,
+                audioUrl: null,
+                videoUrl: null,
+            },
+            "maria-gomez": {
+                name: "Maria Gomez",
+                birthYear: 1952,
+                tagline: "The rhythm of life, from a small village to a bustling city.",
+                imageUrl: "https://placehold.co/400x400/a3a3a3/ffffff?text=Maria",
+                storyHtml: `<p>In my village, life moved with the seasons. We knew every family, every story. Music was the thread that tied us all together. At every festival, my father would play his guitar, and the whole village would dance until the moon was high in the sky. That music lives in my soul.</p><p>When I moved to the city to work as a nurse, the noise was overwhelming. So many faces, so many people in a hurry. But I found the rhythm in the steady beep of the heart monitors, in the comforting words I'd share with patients. I learned that compassion has its own kind of music.</p><p>I taught my children the songs of my village. It was my way of giving them roots. Now, they are grown, and sometimes, when my granddaughter hums a tune she doesn't know she learned from me, I feel that connection, that unbroken line stretching back through time. It's the most beautiful music of all.</p>`,
+                audioUrl: null,
+                videoUrl: null,
+            }
+        };
+
+        // Function to add mock data to Firestore if the collection is empty
+        async function seedDatabase() {
+            if (!db) return;
+            try {
+                const storiesRef = collection(db, "stories");
+                const snapshot = await getDocs(query(storiesRef, limit(1)));
+                if (snapshot.empty) {
+                    console.log("No stories found. Seeding database with mock data...");
+                    for (const [id, data] of Object.entries(MOCK_STORIES)) {
+                        await setDoc(doc(db, "stories", id), data);
+                    }
+                    console.log("Database seeded successfully.");
+                } else {
+                    console.log("Database already contains stories.");
+                }
+            } catch (error) {
+                console.error("Error seeding database: ", error);
+            }
+        }
+
+
+        // --- UI & Routing Logic ---
+        const mainContent = document.getElementById('main-content');
+        const templates = document.getElementById('page-templates');
+
+        const routes = {
+            '#home': 'home-template',
+            '#stories': 'stories-template',
+            '#about': 'about-template',
+            '#nominate': 'nominate-template',
+            '#story': 'story-detail-template'
+        };
+
+        async function router() {
+            const hash = window.location.hash || '#home';
+            const pathParts = hash.split('/');
+            const route = pathParts[0];
+            const storyId = pathParts[1];
+
+            const templateId = routes[route];
+            if (!templateId) {
+                // Fallback to home for unknown routes
+                window.location.hash = '#home';
+                return;
+            }
+
+            const template = templates.querySelector(`#${templateId}`).cloneNode(true);
+            mainContent.innerHTML = '';
+            mainContent.appendChild(template);
+            
+            // Execute page-specific logic
+            if (route === '#home') {
+                await loadFeaturedStories();
+            } else if (route === '#stories') {
+                await loadAllStories();
+            } else if (route === '#story' && storyId) {
+                await loadStoryDetail(storyId);
+            } else if (route === '#nominate') {
+                setupNominationForm();
+            }
+            
+            // Re-initialize icons for the new content
+            lucide.createIcons();
+            window.scrollTo(0, 0);
+        }
+        
+        // --- Data Loading Functions ---
+        async function loadFeaturedStories() {
+            const container = mainContent.querySelector('#featured-stories-container');
+            if (!db) {
+                container.innerHTML = `<p class="text-red-500">Database connection not available.</p>`;
+                return;
+            }
+            try {
+                const storiesRef = collection(db, "stories");
+                const q = query(storiesRef, limit(3));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    container.innerHTML = `<p>No stories available yet. Be the first to nominate someone!</p>`;
+                    return;
+                }
+
+                let storiesHtml = '';
+                querySnapshot.forEach((doc) => {
+                    const story = doc.data();
+                    storiesHtml += `
+                        <a href="#story/${doc.id}" class="block group fade-in">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                                <img src="${story.imageUrl}" alt="${story.name}" class="w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/94a3b8?text=Image+Not+Found';">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-serif font-semibold text-stone-800">${story.name}</h3>
+                                    <p class="text-stone-600 mt-2 text-sm">${story.tagline}</p>
+                                    <span class="text-amber-700 mt-4 inline-block font-semibold group-hover:underline">Read Story &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                container.innerHTML = storiesHtml;
+            } catch (error) {
+                console.error("Error loading featured stories: ", error);
+                container.innerHTML = `<p class="text-red-500">Could not load stories. Please try again later.</p>`;
+            }
+        }
+
+        async function loadAllStories() {
+            const grid = mainContent.querySelector('#stories-grid');
+            if (!db) {
+                grid.innerHTML = `<p class="text-red-500">Database connection not available.</p>`;
+                return;
+            }
+            try {
+                const querySnapshot = await getDocs(collection(db, "stories"));
+                 if (querySnapshot.empty) {
+                    grid.innerHTML = `<p class="col-span-full text-center">No stories available yet. Be the first to nominate someone!</p>`;
+                    return;
+                }
+                let storiesHtml = '';
+                querySnapshot.forEach((doc) => {
+                    const story = doc.data();
+                    storiesHtml += `
+                        <a href="#story/${doc.id}" class="block group fade-in">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                                <img src="${story.imageUrl}" alt="${story.name}" class="w-full h-60 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/94a3b8?text=Image';">
+                                <div class="p-6 flex-grow flex flex-col">
+                                    <h3 class="text-xl font-serif font-semibold text-stone-800">${story.name}</h3>
+                                    <p class="text-stone-600 mt-2 text-sm flex-grow">${story.tagline}</p>
+                                    <span class="text-amber-700 mt-4 inline-block font-semibold group-hover:underline self-start">Read Story &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                grid.innerHTML = storiesHtml;
+            } catch (error) {
+                console.error("Error loading all stories: ", error);
+                grid.innerHTML = `<p class="text-red-500">Could not load stories. Please try again later.</p>`;
+            }
+        }
+
+        async function loadStoryDetail(id) {
+            const container = mainContent.querySelector('.container');
+            if (!db) {
+                container.innerHTML = `<p class="text-red-500">Database connection not available.</p>`;
+                return;
+            }
+            try {
+                const docRef = doc(db, "stories", id);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const story = docSnap.data();
+                    const storyHtml = `
+                        <article>
+                            <header class="text-center mb-10">
+                                <h1 class="text-4xl md:text-5xl font-serif font-bold">${story.name}</h1>
+                                <p class="text-lg text-stone-600 mt-2">Born ${story.birthYear}</p>
+                            </header>
+                            
+                            <figure class="mb-10">
+                                <img src="${story.imageUrl}" alt="${story.name}" class="w-full max-w-lg mx-auto rounded-lg shadow-xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image+Not+Found';">
+                                <figcaption class="text-center text-sm text-stone-500 mt-4 italic">${story.tagline}</figcaption>
+                            </figure>
+
+                            <div class="prose lg:prose-xl mx-auto text-stone-800">
+                                ${story.storyHtml}
+                            </div>
+                        </article>
+                    `;
+                    container.innerHTML = storyHtml;
+                } else {
+                    container.innerHTML = `<p class="text-center">Story not found.</p>`;
+                }
+            } catch (error) {
+                console.error("Error loading story detail: ", error);
+                container.innerHTML = `<p class="text-red-500">Could not load story. Please try again later.</p>`;
+            }
+        }
+        
+        // --- Form Handling ---
+        function setupNominationForm() {
+            const form = mainContent.querySelector('#nomination-form');
+            if (form) {
+                form.addEventListener('submit', handleNominationSubmit);
+            }
+        }
+
+        async function handleNominationSubmit(e) {
+            e.preventDefault();
+            if (!db) {
+                showMessageModal("Error", "Database connection not available.");
+                return;
+            }
+
+            const submitButton = e.target.querySelector('#form-submit-button');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            const nomination = {
+                nominatorName: document.getElementById('nominator-name').value,
+                nominatorEmail: document.getElementById('nominator-email').value,
+                storytellerName: document.getElementById('storyteller-name').value,
+                storytellerContact: document.getElementById('storyteller-contact').value,
+                storySummary: document.getElementById('story-summary').value,
+                submittedAt: new Date(),
+                status: 'new'
+            };
+
+            try {
+                const docRef = await addDoc(collection(db, "nominations"), nomination);
+                console.log("Nomination submitted with ID: ", docRef.id);
+                showMessageModal("Thank You!", "Your nomination has been received. We will review it with care and respect.");
+                e.target.reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                showMessageModal("Submission Failed", "There was an error submitting your nomination. Please try again later.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Nomination';
+            }
+        }
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('message-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalCloseButton = document.getElementById('modal-close-button');
+
+        function showMessageModal(title, message) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.classList.remove('hidden');
+        }
+
+        function hideMessageModal() {
+            modal.classList.add('hidden');
+        }
+        
+        modalCloseButton.addEventListener('click', hideMessageModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideMessageModal();
+            }
+        });
+
+        // --- Mobile Menu Toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        // Close mobile menu when a link is clicked
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+
+        // --- Initial Load ---
+        window.addEventListener('hashchange', router);
+        window.addEventListener('DOMContentLoaded', async () => {
+            await seedDatabase(); // Check and seed DB on first load
+            router(); // Then load the initial page
+        });
+
+    </script>
+</body>
+</html>
